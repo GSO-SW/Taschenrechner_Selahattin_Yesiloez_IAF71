@@ -23,10 +23,10 @@ namespace Taschenrechner
                 op = Convert.ToChar(Console.ReadLine());
 
                 Console.Write("Geben Sie die erste Zahl : ");
-                int zahl1 = Convert.ToInt32(Console.ReadLine());
+                double zahl1 = Convert.ToInt32(Console.ReadLine());
 
                 Console.Write("Geben Sie die zweite Zahl : ");
-                int zahl2 = Convert.ToInt32(Console.ReadLine());
+                double zahl2 = Convert.ToInt32(Console.ReadLine());
                 
                 switch (op)
                 {
