@@ -13,13 +13,13 @@ namespace Taschenrechner
 
             string choice = "";
 
-            char op = 'a';
+            char op = ' ';
 
             do
             {
                 Console.Clear();
 
-                Console.Write("Welche Rechenoperation möchten Sie durchführen : + : * - \n Eingabe : ");
+                Console.Write("Welche Rechenoperation möchten Sie durchführen : + / * - \n Eingabe : ");
                 op = Convert.ToChar(Console.ReadLine());
 
                 Console.Write("Geben Sie die erste Zahl : ");
@@ -38,6 +38,9 @@ namespace Taschenrechner
                         break;
                     case '*':
                         Console.Write("\n\nDas Ergebnis : {0}", zahl1 * zahl2);
+                        break;
+                    case '/':
+                        Console.Write("\n\nDas Ergebnis : {0}", zahl1 / zahl2);
                         break;
                 }
 
