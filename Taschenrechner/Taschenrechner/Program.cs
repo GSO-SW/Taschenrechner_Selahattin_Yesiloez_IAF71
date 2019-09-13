@@ -36,7 +36,9 @@ namespace Taschenrechner
                     case '-':
                         Console.Write("\n\nDas Ergebnis : {0}", zahl1 - zahl2);
                         break;
-                    
+                    case '*':
+                        Console.Write("\n\nDas Ergebnis : {0}", zahl1 * zahl2);
+                        break;
                 }
 
                 
