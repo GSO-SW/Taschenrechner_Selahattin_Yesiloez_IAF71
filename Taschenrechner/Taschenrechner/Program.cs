@@ -19,13 +19,13 @@ namespace Taschenrechner
             {
                 Console.Clear();
 
-                Console.Write("Welche Rechenoperation möchten Sie durchführen : + / * - \n Eingabe : ");
+                Console.Write("Welche Rechenoperation möchten Sie durchführen : + / * - oder P für eine Potenz Rechnung\n Eingabe : ");
                 op = Convert.ToChar(Console.ReadLine());
-
-                Console.Write("Geben Sie die erste Zahl : ");
+             
+                Console.Write("Geben Sie eine Zahl ein: ");
                 double zahl1 = Convert.ToInt32(Console.ReadLine());
 
-                Console.Write("Geben Sie die zweite Zahl : ");
+                Console.Write("Geben Sie eine zweite Zahl : ");
                 double zahl2 = Convert.ToInt32(Console.ReadLine());
                 
                 switch (op)
