@@ -55,7 +55,7 @@ namespace Taschenrechner
                         for (int i = 0; i < Exponent - 1; i++)
                         {
                             a = a * zahl1; 
-                        }
+                        } 
                         Console.Write("\n\nDas Ergebnis : {0}", a);
                         break;
                     case 'p':
