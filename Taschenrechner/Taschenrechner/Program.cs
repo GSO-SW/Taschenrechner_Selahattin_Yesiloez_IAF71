@@ -54,7 +54,7 @@ namespace Taschenrechner
                         double a = zahl1;
                         for (int i = 0; i < Exponent - 1; i++)
                         {
-                            a = a * zahl1;
+                            a = a * zahl1; 
                         }
                         Console.Write("\n\nDas Ergebnis : {0}", a);
                         break;
