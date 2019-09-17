@@ -19,8 +19,15 @@ namespace Taschenrechner
             {
                 Console.Clear();
 
-                Console.Write("Welche Rechenoperation möchten Sie durchführen : + / * - \n Eingabe : ");
-                op = Convert.ToChar(Console.ReadLine());
+                try
+                {
+                    Console.Write("Welche Rechenoperation möchten Sie durchführen : + / * - \n Eingabe : ");
+                    op = Convert.ToChar(Console.ReadLine());
+                }
+                catch
+                {
+
+                }
 
                 Console.Write("Geben Sie die erste Zahl : ");
                 double zahl1 = Convert.ToInt32(Console.ReadLine());
