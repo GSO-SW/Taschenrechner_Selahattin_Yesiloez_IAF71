@@ -11,73 +11,106 @@ namespace Taschenrechner
         static void Main(string[] args)
         {
 
-            string choice = "";
+        
 
-            char op = ' ';
-            double zahl1 = 0;
-            double zahl2 = 0;
-            int Exponent = 0;
+           
+           
+            
+            string rechnung = "";
+            List<string> rechnungsdetails = new List<string>();
+            double endErgebnis = 0;
             do
             {
                 Console.Clear();
 
-                Console.Write("Welche Rechenoperation möchten Sie durchführen : + / * - oder P für eine Potenz Rechnung\n Eingabe : ");
-                op = Convert.ToChar(Console.ReadLine());
-                
-                Console.Write("Geben Sie eine Zahl ein: ");
-                zahl1 = Convert.ToDouble(Console.ReadLine());
-                if (op != 'p' && op != 'P') {
-                    Console.Write("Geben Sie eine zweite Zahl : ");
-                    zahl2 = Convert.ToDouble(Console.ReadLine());
-                }
-                else if (op == 'p' || op == 'P')
+                Console.Write("Geben Sie ihre Rechnung an : ");
+                rechnung = Console.ReadLine();
+                bool check = false;
+                for (int i = 0; i < rechnung.Length; i++)
                 {
-                    Console.Write("Geben Sie bitte den Exponent ein : ");
-                    Exponent = Convert.ToInt32(Console.ReadLine());
-
-                }
-                switch (op)
-                {
-                    case '+':
-                        Console.Write("\n\nDas Ergebnis : {0}", zahl1 + zahl2);
-                        break;
-                    case '-':
-                        Console.Write("\n\nDas Ergebnis : {0}", zahl1 - zahl2);
-                        break;
-                    case '*':
-                        Console.Write("\n\nDas Ergebnis : {0}", zahl1 * zahl2);
-                        break;
-                    case '/':
-                        Console.Write("\n\nDas Ergebnis : {0}", zahl1 / zahl2);
-                        break;
-                    case 'P':
-                        double a = zahl1;
-                        for (int i = 0; i < Exponent - 1; i++)
+                    if (char.IsDigit(rechnung[i]))
+                    {
+                        if (check == true)
                         {
-                            a = a * zahl1; 
-                        } 
-                        Console.Write("\n\nDas Ergebnis : {0}", a);
-                        break;
-                    case 'p':
-                        double b = zahl1;
-                        for (int i = 0; i < Exponent - 1; i++)
-                        {
-                            b = b * zahl1;
+                            rechnungsdetails[rechnungsdetails.Count() - 1] += rechnung[i];
                         }
-                        Console.Write("\n\nDas Ergebnis : {0}", b);
-                        break;
+                        else if (check == false)
+                        {
+                            rechnungsdetails.Add(rechnung[i].ToString());
+                        }
+                        check = true;
+                    }
+                    else if (rechnung[i] == '.')
+                    {
+                        rechnungsdetails[rechnungsdetails.Count() - 1] += rechnung[i];
 
+                    }
+                    else if (rechnung[i] == '+' || rechnung[i] == '-' || rechnung[i] == '/' || rechnung[i] == '*')
+                    {
+                        rechnungsdetails.Add(rechnung[i].ToString());
+                        check = false;
+                    }
                 }
 
+                for (int i = 0; i < rechnungsdetails.Count(); i++)
+                {
+                    if (rechnungsdetails[i] == '*'.ToString())
+                    {
+                        
+                            string ergebnis = (Convert.ToDouble(rechnungsdetails[i - 1]) * Convert.ToDouble(rechnungsdetails[i + 1])).ToString();
+                        rechnungsdetails.RemoveAt(i + 1);
+                        rechnungsdetails.RemoveAt(i);
+                       
+                            
+                        
+                        rechnungsdetails.RemoveAt(i - 1);
+                        rechnungsdetails.Insert(i - 1,ergebnis);
+                        i = 0;
+
+                    }
+                    else if(rechnungsdetails[i] == '/'.ToString())
+                    {
+                        string ergebnis = (Convert.ToDouble(rechnungsdetails[i - 1]) / Convert.ToDouble(rechnungsdetails[i + 1])).ToString();
+                        rechnungsdetails.RemoveAt(i + 1);
+
+                        rechnungsdetails.RemoveAt(i);
+                      
+                            
+                        
+                       
+                        rechnungsdetails.RemoveAt(i - 1);
+                            rechnungsdetails.Insert(i - 1, ergebnis);
+                        i = 0;
+                    }
+                    
+                }
                 
 
-                
-                Console.Write("\n\nErneut : J\\N");
-                Console.Write(" Entscheidung : ");
-                choice = Console.ReadLine();
-            } while (choice == "J" || choice == "j");
-        
+                for (int i = 0; i < rechnungsdetails.Count; i++)
+                {
+                    if (rechnungsdetails[i] == '+'.ToString())
+                    {
+                        endErgebnis += Convert.ToDouble(rechnungsdetails[i + 1]);
+                    }
+                    else if (rechnungsdetails[i] == '-'.ToString())
+                    {
+                        endErgebnis -= Convert.ToDouble(rechnungsdetails[i + 1]);
+                    }
+                    else if (i == 0) 
+                    {
+                        endErgebnis = Convert.ToDouble(rechnungsdetails[i]);
+                    }
+                }
 
-        }  
+
+
+                Console.WriteLine(endErgebnis.ToString());
+
+
+                Console.ReadLine();
+            } while (true);
+
+
+        }
     }
 }
