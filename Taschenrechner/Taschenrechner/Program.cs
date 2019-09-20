@@ -10,107 +10,113 @@ namespace Taschenrechner
     {
         static void Main(string[] args)
         {
-
-        
-
-           
-           
-            
             string rechnung = "";
             List<string> rechnungsdetails = new List<string>();
             double endErgebnis = 0;
+            ConsoleKey choice;
+
             do
             {
-                Console.Clear();
-
-                Console.Write("Geben Sie ihre Rechnung an : ");
-                rechnung = Console.ReadLine();
-                bool check = false;
-                for (int i = 0; i < rechnung.Length; i++)
+                do
                 {
-                    if (char.IsDigit(rechnung[i]))
+                    Console.Clear();
+
+                    Console.Write("Geben Sie ihre Rechnung an : ");
+                    rechnung = Console.ReadLine();
+
+                    bool check = false;
+                    for (int i = 0; i < rechnung.Length; i++)
                     {
-                        if (check == true)
+                        if (char.IsDigit(rechnung[i]))
+                        {
+                            if (check == true)
+                            {
+                                rechnungsdetails[rechnungsdetails.Count() - 1] += rechnung[i];
+                            }
+                            else if (check == false)
+                            {
+                                rechnungsdetails.Add(rechnung[i].ToString());
+                            }
+                            check = true;
+                        }
+                        else if (rechnung[i] == '.')
                         {
                             rechnungsdetails[rechnungsdetails.Count() - 1] += rechnung[i];
+
                         }
-                        else if (check == false)
+                        else if (rechnung[i] == '+' || rechnung[i] == '-' || rechnung[i] == '/' || rechnung[i] == '*')
                         {
                             rechnungsdetails.Add(rechnung[i].ToString());
+                            check = false;
                         }
-                        check = true;
                     }
-                    else if (rechnung[i] == '.')
-                    {
-                        rechnungsdetails[rechnungsdetails.Count() - 1] += rechnung[i];
 
-                    }
-                    else if (rechnung[i] == '+' || rechnung[i] == '-' || rechnung[i] == '/' || rechnung[i] == '*')
+                    for (int i = 0; i < rechnungsdetails.Count(); i++)
                     {
-                        rechnungsdetails.Add(rechnung[i].ToString());
-                        check = false;
-                    }
-                }
+                        if (rechnungsdetails[i] == '*'.ToString())
+                        {
 
-                for (int i = 0; i < rechnungsdetails.Count(); i++)
-                {
-                    if (rechnungsdetails[i] == '*'.ToString())
-                    {
-                        
                             string ergebnis = (Convert.ToDouble(rechnungsdetails[i - 1]) * Convert.ToDouble(rechnungsdetails[i + 1])).ToString();
-                        rechnungsdetails.RemoveAt(i + 1);
-                        rechnungsdetails.RemoveAt(i);
-                       
-                            
-                        
-                        rechnungsdetails.RemoveAt(i - 1);
-                        rechnungsdetails.Insert(i - 1,ergebnis);
-                        i = 0;
+                            rechnungsdetails.RemoveAt(i + 1);
+                            rechnungsdetails.RemoveAt(i);
 
-                    }
-                    else if(rechnungsdetails[i] == '/'.ToString())
-                    {
-                        string ergebnis = (Convert.ToDouble(rechnungsdetails[i - 1]) / Convert.ToDouble(rechnungsdetails[i + 1])).ToString();
-                        rechnungsdetails.RemoveAt(i + 1);
 
-                        rechnungsdetails.RemoveAt(i);
-                      
-                            
-                        
-                       
-                        rechnungsdetails.RemoveAt(i - 1);
+
+                            rechnungsdetails.RemoveAt(i - 1);
                             rechnungsdetails.Insert(i - 1, ergebnis);
-                        i = 0;
-                    }
-                    
-                }
-                
+                            i = 0;
 
-                for (int i = 0; i < rechnungsdetails.Count; i++)
-                {
-                    if (rechnungsdetails[i] == '+'.ToString())
+                        }
+                        else if (rechnungsdetails[i] == '/'.ToString())
+                        {
+                            string ergebnis = (Convert.ToDouble(rechnungsdetails[i - 1]) / Convert.ToDouble(rechnungsdetails[i + 1])).ToString();
+                            rechnungsdetails.RemoveAt(i + 1);
+
+                            rechnungsdetails.RemoveAt(i);
+
+
+
+
+                            rechnungsdetails.RemoveAt(i - 1);
+                            rechnungsdetails.Insert(i - 1, ergebnis);
+                            i = 0;
+                        }
+
+                    }
+
+
+                    for (int i = 0; i < rechnungsdetails.Count; i++)
                     {
-                        endErgebnis += Convert.ToDouble(rechnungsdetails[i + 1]);
+                        if (rechnungsdetails[i] == '+'.ToString())
+                        {
+                            endErgebnis += Convert.ToDouble(rechnungsdetails[i + 1]);
+                        }
+                        else if (rechnungsdetails[i] == '-'.ToString())
+                        {
+                            endErgebnis -= Convert.ToDouble(rechnungsdetails[i + 1]);
+                        }
+                        else if (i == 0)
+                        {
+                            endErgebnis = Convert.ToDouble(rechnungsdetails[i]);
+                        }
                     }
-                    else if (rechnungsdetails[i] == '-'.ToString())
+
+                    Console.WriteLine(endErgebnis.ToString());
+
+                    choice = Console.ReadKey(true).Key;
+                    switch (choice)
                     {
-                        endErgebnis -= Convert.ToDouble(rechnungsdetails[i + 1]);
+                        case ConsoleKey.R:
+                            Console.Clear();
+                            Console.Write("Geben Sie ihre Rechnung an : " + rechnung);
+                            break;
                     }
-                    else if (i == 0) 
-                    {
-                        endErgebnis = Convert.ToDouble(rechnungsdetails[i]);
-                    }
-                }
 
+                    Console.ReadLine();
 
+                } while (true);
 
-                Console.WriteLine(endErgebnis.ToString());
-
-
-                Console.ReadLine();
-            } while (true);
-
-
+            } while (choice != ConsoleKey.R);
         }
     }
 }
