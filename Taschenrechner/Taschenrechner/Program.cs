@@ -43,9 +43,8 @@ namespace Taschenrechner
                     else if (rechnung[i] == ',')
                     {
                         rechnungsdetails[rechnungsdetails.Count() - 1] += rechnung[i];
-
                     }
-                    else if (rechnung[i] == '+' || rechnung[i] == '-' || rechnung[i] == '/' || rechnung[i] == '*')
+                    else if (rechnung[i] == '+' || rechnung[i] == '-' || rechnung[i] == '/' || rechnung[i] == '*' || rechnung[i] == '^')
                     {
                         rechnungsdetails.Add(rechnung[i].ToString());
                         check = false;
@@ -54,6 +53,10 @@ namespace Taschenrechner
 
                 for (int i = 0; i < rechnungsdetails.Count(); i++)
                 {
+                    if (rechnungsdetails[i] == '^'.ToString())
+                    {
+
+                    }
                     if (rechnungsdetails[i] == '*'.ToString())
                     {
                         if (!char.IsDigit(rechnungsdetails[i + 1][0]))
