@@ -47,7 +47,7 @@ namespace Taschenrechner
                         }
                         check = true;
                     }
-                    else if (rechnung[i] == '.')
+                    else if (rechnung[i] == ',')
                     {
                         rechnungsdetails[rechnungsdetails.Count() - 1] += rechnung[i];
 
@@ -63,33 +63,33 @@ namespace Taschenrechner
                 {
                     if (rechnungsdetails[i] == '*'.ToString())
                     {
-                        
-                            string ergebnis = (Convert.ToDouble(rechnungsdetails[i - 1]) * Convert.ToDouble(rechnungsdetails[i + 1])).ToString();
+                        if (!char.IsDigit(rechnungsdetails[i + 1][0]))
+                        {
+                            rechnungsdetails[i + 1] += rechnungsdetails[i + 2];
+                            rechnungsdetails.RemoveAt(i + 2);
+                        }
+                        string ergebnis = (Convert.ToDouble(rechnungsdetails[i - 1]) * Convert.ToDouble(rechnungsdetails[i + 1])).ToString();
                         rechnungsdetails.RemoveAt(i + 1);
                         rechnungsdetails.RemoveAt(i);
-                       
-                            
-                        
                         rechnungsdetails.RemoveAt(i - 1);
-                        rechnungsdetails.Insert(i - 1,ergebnis);
+                        rechnungsdetails.Insert(i - 1, ergebnis);
                         i = 0;
 
                     }
-                    else if(rechnungsdetails[i] == '/'.ToString())
+                    else if (rechnungsdetails[i] == '/'.ToString())
                     {
+                        if (!char.IsDigit(rechnungsdetails[i + 1][0]))
+                        {
+                            rechnungsdetails[i + 1] += rechnungsdetails[i + 2];
+                            rechnungsdetails.RemoveAt(i + 2);
+                        }
                         string ergebnis = (Convert.ToDouble(rechnungsdetails[i - 1]) / Convert.ToDouble(rechnungsdetails[i + 1])).ToString();
                         rechnungsdetails.RemoveAt(i + 1);
-
                         rechnungsdetails.RemoveAt(i);
-                      
-                            
-                        
-                       
                         rechnungsdetails.RemoveAt(i - 1);
-                            rechnungsdetails.Insert(i - 1, ergebnis);
+                        rechnungsdetails.Insert(i - 1, ergebnis);
                         i = 0;
                     }
-                    
                 }
                 
 
@@ -97,10 +97,20 @@ namespace Taschenrechner
                 {
                     if (rechnungsdetails[i] == '+'.ToString())
                     {
+                        if (!char.IsDigit(rechnungsdetails[i + 1][0]))
+                        {
+                            rechnungsdetails[i + 1] += rechnungsdetails[i + 2];
+                            rechnungsdetails.RemoveAt(i + 2);
+                        }
                         endErgebnis += Convert.ToDouble(rechnungsdetails[i + 1]);
                     }
                     else if (rechnungsdetails[i] == '-'.ToString())
                     {
+                        if (!char.IsDigit(rechnungsdetails[i + 1][0]))
+                        {
+                            rechnungsdetails[i + 1] += rechnungsdetails[i + 2];
+                            rechnungsdetails.RemoveAt(i + 2);
+                        }
                         endErgebnis -= Convert.ToDouble(rechnungsdetails[i + 1]);
                     }
                     else if (i == 0) 
@@ -120,6 +130,7 @@ namespace Taschenrechner
                 }
 
                 hindex++;
+
 
                 Console.ReadLine();
             } while (true);
