@@ -55,7 +55,16 @@ namespace Taschenrechner
                 {
                     if (rechnungsdetails[i] == '^'.ToString())
                     {
-
+                        double a = Convert.ToDouble(rechnungsdetails[i - 1]);
+                        for (int j = 0; j < Convert.ToInt32(rechnungsdetails[i + 1]); j++)
+                        {
+                            a = a * Convert.ToDouble(rechnungsdetails[i - 1]);
+                        }
+                        rechnungsdetails.RemoveAt(i + 1);
+                        rechnungsdetails.RemoveAt(i);
+                        rechnungsdetails.RemoveAt(i - 1);
+                        rechnungsdetails.Insert(i - 1, a.ToString());
+                        i = 0;
                     }
                     if (rechnungsdetails[i] == '*'.ToString())
                     {
