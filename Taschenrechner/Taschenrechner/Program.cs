@@ -18,6 +18,10 @@ namespace Taschenrechner
             
             string rechnung = "";
             List<string> rechnungsdetails = new List<string>();
+
+            List<string> history = new List<string>();
+            int hindex = 0;
+
             double endErgebnis = 0;
             do
             {
@@ -25,6 +29,9 @@ namespace Taschenrechner
 
                 Console.Write("Geben Sie ihre Rechnung an : ");
                 rechnung = Console.ReadLine();
+
+                history.Add(rechnung);
+
                 bool check = false;
                 for (int i = 0; i < rechnung.Length; i++)
                 {
@@ -112,11 +119,19 @@ namespace Taschenrechner
                     }
                 }
 
-
+                history[hindex] = rechnung +  " = " + endErgebnis.ToString();
 
                 Console.WriteLine(endErgebnis.ToString());
 
-                
+                Console.WriteLine("\n\n History: ");
+                for(int i = 0; i < history.Count; i++)
+                {
+                    Console.WriteLine((i+1) + ". " + history[i]);
+                }
+
+                hindex++;
+
+
                 Console.ReadLine();
             } while (true);
 
